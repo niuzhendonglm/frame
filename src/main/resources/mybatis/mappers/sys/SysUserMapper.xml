@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.niuzhendong.frame.modules.sys.mapper.SysUserMapper">
+
+    <resultMap id="userResultMap" type="com.niuzhendong.frame.modules.sys.model.SysUserModel">
+        <id property="tsuId" column="tsu_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <collection property="roles" ofType="com.niuzhendong.frame.modules.sys.model.SysRoleModel">
+            <id property="tsrId" column="tsr_id"/>
+            <result property="rname" column="rname"/>
+            <collection property="permissions" ofType="com.niuzhendong.frame.modules.sys.model.SysPermissionModel">
+                <id property="tspId" column="tsp_id"/>
+                <result property="pname" column="pname"/>
+                <result property="url" column="url"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findByUsername" parameterType="java.lang.String" resultMap="userResultMap">
+      SELECT u.*, r.*, p.*
+      FROM sys_user u
+        INNER JOIN relations_user_role ur on ur.tsu_id = u.tsu_id
+        INNER JOIN sys_role r on r.tsr_id = ur.tsr_id
+        INNER JOIN relations_role_permission rp on rp.tsr_id = r.tsr_id
+        INNER JOIN sys_permission p on rp.tsp_id = p.tsp_id
+      WHERE u.username = #{username}
+    </select>
+</mapper>

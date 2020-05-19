@@ -1,0 +1,252 @@
+# 项目相关配置
+jnkj:
+  # 名称
+  name: JNKJ
+  # 版本
+  version: 1.0.0
+  # 版权年份
+  copyRightYear: 2019
+  # 获取 IP 地址开关
+  addressEnabled: true
+# 嵌入式Server配置
+server:
+  # 服务端口
+  port: 9999
+  servlet:
+    # 项目 contextPath
+    context-path: /frame
+  tomcat:
+    # Tomcat的URI编码
+    uri-encoding: UTF-8
+    # Tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化线程数，默认值10
+    min-spare-threads: 30
+spring:
+  application:
+    name: shiro
+  # 数据库连接池的相关配置
+  datasource:
+    #platform: h2
+    #schema: classpath:schema.sql
+    #data: classpath:data.sql
+    druid:
+      master:
+        name: master
+        url: jdbc:mysql://127.0.0.1:3306/shiro?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+        username: root
+        # 加密 （java -cp E:\maven-repository\com\alibaba\druid\1.1.10\druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools 123456）
+        password: rhqaHDDNj5UXAjAdqffTwRFG8tZEj674TyhFLSJFVHdHY+lW/p4n8yT8Cj1DoRxwzzanvVndYctp1tEVxGUoaQ==
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        # druid配置
+        # 配置初始化大小、最小、最大 (通常来说，只需要修改initialSize、minIdle、maxActive)
+        #连接池建立时创建的初始化连接数
+        initial-size: 5
+        #连接池中最小的活跃连接数
+        min-idle: 1
+        #连接池中最大的活跃连接数
+        max-active: 20
+        # 配置获取连接等待超时的时间
+        max-wait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        # 验证数据库连接的查询语句，这个查询语句必须是至少返回一条数据的SELECT语句
+        validation-query: SELECT 1 FROM DUAL
+        #是否在获得连接后检测其可用性
+        test-on-borrow: false
+        #是否在连接放回连接池后检测其可用性
+        test-on-return: false
+        #是否在连接空闲一段时间后检测其可用性
+        test-while-idle: true
+        #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙（stat,wall,log4j）
+        filters: stat,wall,log4j,config
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录。启用加密，配置公钥。
+        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANhDycRhz4c8asRB5jhj7SnhfOMokH/nh8am7Zmv61MB91hd1GoD0zoMc9e8kEnztbQg180539uk3A3vSeqEnzUCAwEAAQ==
+        connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=${spring.datasource.druid.master.publickey};
+        # 合并多个DruidDataSource的监控数据
+        #use-global-data-source-stat: true
+      slave-one:
+        name: slave-one
+        url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+        username: root
+        password: rhqaHDDNj5UXAjAdqffTwRFG8tZEj674TyhFLSJFVHdHY+lW/p4n8yT8Cj1DoRxwzzanvVndYctp1tEVxGUoaQ==
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        # druid配置
+        # 配置初始化大小、最小、最大 (通常来说，只需要修改initialSize、minIdle、maxActive)
+        #连接池建立时创建的初始化连接数
+        initial-size: 5
+        #连接池中最小的活跃连接数
+        min-idle: 1
+        #连接池中最大的活跃连接数
+        max-active: 20
+        # 配置获取连接等待超时的时间
+        max-wait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        # 验证数据库连接的查询语句，这个查询语句必须是至少返回一条数据的SELECT语句
+        validation-query: SELECT 1 FROM DUAL
+        #是否在获得连接后检测其可用性
+        test-on-borrow: false
+        #是否在连接放回连接池后检测其可用性
+        test-on-return: false
+        #是否在连接空闲一段时间后检测其可用性
+        test-while-idle: true
+        #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙（stat,wall,log4j）
+        filters: stat,wall,log4j,config
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录。启用加密，配置公钥。
+        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANhDycRhz4c8asRB5jhj7SnhfOMokH/nh8am7Zmv61MB91hd1GoD0zoMc9e8kEnztbQg180539uk3A3vSeqEnzUCAwEAAQ==
+        connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=${spring.datasource.druid.slave-one.publickey};
+        # 合并多个DruidDataSource的监控数据
+        #use-global-data-source-stat: true
+  # Spring Data JPA的相关配置
+  jpa:
+    database: mysql
+    show-sql: true
+    generate-ddl: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      #关闭驼峰命名自动加‘_’，解决@Column失效
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        # 不加此配置，获取不到当前currentsession
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  # Thymeleaf模板引擎的相关配置
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    mode: HTML
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    # thymeleaf缓存，开发时禁用，上线打开
+    cache: false
+  # 国际化资源文件路径
+  messages:
+    basename: i18n/messages
+  jackson:
+    # 时间格式化
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 配置如果对象中有null值 该字段就不传到前台
+    default-property-inclusion: non_null
+  servlet:
+    # 文件上传
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 50MB
+  devtools:
+    restart:
+      enabled: true
+      exclude: WEB-INF/**
+  activiti:
+    check-process-definitions: false
+    # 热部署开关
+  # 视图配置
+  #  mvc:
+  #    view:
+  #      prefix: /pages/
+  #      suffix: .jsp
+
+  # RabbitMQ的相关配置
+  rabbitmq:
+    #virtual-host: converged_media
+    host: 192.168.35.135
+    port: 5672
+    username: admin
+    password: admin
+    #确认消息
+    publisher-confirms: true
+    #回调消息
+    publisher-returns: true
+    #返回消息
+    template:
+      mandatory: true
+    listener:
+      simple:
+        #手动应答
+        acknowledge-mode: manual
+        #最小的消费者数量
+        concurrency: 1
+        #最大的消费者数量
+        max-concurrency: 1
+        #是否支持重试
+        retry:
+          enabled: true
+  # Redis缓存
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 192.168.35.135
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: 63796379
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    # 连接超时时间（毫秒）
+    timeout: 1000
+    # 配置哨兵节点
+    #sentinel:
+    #  master: mymaster
+    #  nodes: 10.20.12.50:26379,10.20.12.51:26379,10.20.12.52:26379
+
+# Mybatis的相关配置
+mybatis:
+  # mapper.xml所在位置
+  #mapper-locations: classpath:mybatis/*.xml
+  # 实体类所在包
+  type-aliases-package: com.niuzhendong.frame.modules.sys.model
+  # 全局配置文件
+  #config-location: classpath:mybatis/mybatis-config.xml
+  configuration:
+    #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
+    #打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice/*
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*,/tool/*
+
+# Dataway
+# 是否启用 Dataway 功能（必选：默认false）
+HASOR_DATAQL_DATAWAY: true
+# 是否开启 Dataway 后台管理界面（必选：默认false）
+HASOR_DATAQL_DATAWAY_ADMIN: true
+# dataway  API工作路径（可选，默认：/api/）
+HASOR_DATAQL_DATAWAY_API_URL: /api/
+# dataway-ui 的工作路径（可选，默认：/interface-ui/）
+HASOR_DATAQL_DATAWAY_UI_URL: /interface-ui/
+# SQL执行器方言设置（可选，建议设置）
+HASOR_DATAQL_FX_PAGE_DIALECT: mysql
